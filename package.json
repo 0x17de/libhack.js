@@ -8,8 +8,19 @@
     "url": "0x17.de"
   },
   "main": "libhack.js",
+  "license": {
+    "type": "MIT",
+    "url": "https://github.com/icetruckde/libhack.js/blob/master/LICENSE"
+  },
+  "bugs": {
+    "url": "https://github.com/icetruckde/libhack.js/issues"
+  },
   "dependencies": {
     "websocket": "^1.0.x"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/icetruckde/libhack.js.git"
   },
   "subdomain": "0x17",
   "analyze": true
