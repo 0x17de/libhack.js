@@ -1,6 +1,6 @@
 {
   "name": "libhack.js",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Hack library with example application",
   "author": {
     "name": "Manuel Herrmann",
@@ -9,8 +9,7 @@
   },
   "main": "libhack.js",
   "dependencies": {
-    "websocket": "^1.0.x",
-    "libircd.js": "0.1.0"
+    "websocket": "^1.0.x"
   },
   "subdomain": "0x17",
   "analyze": true

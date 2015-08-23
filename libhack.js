@@ -22,12 +22,17 @@ var handlerMap = {
 	chat: function(client, json) {
 		client.emit('message', {nick: json.nick, message: json.text, channel: client.channelName});
 	},
-	undefined: function(client, message) {
+	warn: function(client, json) {
+		client.emit('error', {nick: '&system', message: json.text, channel: client.channelName});
+		client.disconnect();
+	},
+	'': function(client, message) {
 		client.emit('error', {nick:'&system', message: message, channel: client.channelName});
 	}
 };
 
 function Client(serverHost, channelName, nickName) {
+	EventEmitter.call(this);
 	var self = this;
 
 	this.serverHost = serverHost;
@@ -66,9 +71,9 @@ function Client(serverHost, channelName, nickName) {
 				if (json && json.cmd && (handler = handlerMap[json.cmd]))
 					handler(self, json);
 				else
-					handler.undefined(self, message);
+					handler[''](self, message);
 			} catch(e) {
-				console.log(String(e));
+				console.log(String(e) + (e.stack ? '\r\n' + String(e.stack) : ''));
 			}
 		});
 		cxn.on('close', function() {
@@ -93,6 +98,9 @@ Client.prototype.setPingEnabled = function(bEnabled) {
 	this.pingInterval = setInterval(function() {
 		self.send({cmd: 'ping'});
 	}, 50000);
+}
+Client.prototype.sendMessage = function(msg) {
+	this.send({cmd: 'chat', text: msg});
 }
 Client.prototype.log = function(msg) {
 	console.log(msg);
