@@ -31,7 +31,7 @@ var handlerMap = {
 	}
 };
 
-function Client(serverHost, channelName, nickName) {
+function Client(serverHost, channelName, nickName, password) {
 	EventEmitter.call(this);
 	var self = this;
 
@@ -48,7 +48,7 @@ function Client(serverHost, channelName, nickName) {
 		self.cxn = cxn;
 		self.log('connected');
 
-		self.send({cmd: 'join', channel: channelName, nick: nickName});
+		self.send({cmd: 'join', channel: channelName, nick: nickName+(password?'#'+password:'')});
 		self.emit('begin', {nick:'&system', message: 'Connection established', channel: self.channelName});
 
 		self.setPingEnabled(true);
